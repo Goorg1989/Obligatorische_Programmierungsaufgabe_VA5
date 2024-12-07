@@ -1,0 +1,71 @@
+
+    class Bag {
+        private Integer object; // Das aktuelle Objekt
+        private Bag next;      // Die nächste Bag (kann leer sein)
+
+        // Konstruktor für eine leere Bag
+        public Bag() {
+            this.object = null;
+            this.next = null;
+        }
+
+        // Konstruktor für eine Bag mit einem Objekt und einer nächsten Bag
+        public Bag(Integer object, Bag next) {
+            this.object = object;
+            this.next = next;
+        }
+
+        // Methode zum Hinzufügen eines Objekts zur Bag
+        public void add(Integer value) {
+            if (this.object == null) {
+                // Wenn die Bag leer ist, fügen wir das Objekt hinzu
+                this.object = value;
+                this.next = new Bag(); // Erstellen einer neuen leeren Bag
+            } else {
+                // Wenn die Bag nicht leer ist, fügen wir das Objekt zur nächsten Bag hinzu
+                this.next.add(value);
+            }
+        }
+
+        // Methode zur Überprüfung, ob die Bag leer ist
+        public boolean isEmpty() {
+            return this.object == null;
+        }
+
+        // Methode zur Berechnung der Größe der Bag
+        public int size() {
+            if (this.isEmpty()) {
+                return 0;
+            } else {
+                return 1 + this.next.size(); // 1 für das aktuelle Objekt + Größe der nächsten Bag
+            }
+        }
+
+        // Rekursive Methode für die String-Darstellung der Bag
+        public String toString() {
+            if (this.isEmpty()) {
+                return "EMPTY";
+            } else {
+                return "(" + this.object + "," + this.next.toString() + ")";
+            }
+        }
+    }
+
+    public static class BagTest {
+        public static void main(String[] args) {
+            Bag myBag = new Bag(); // Erstellen einer neuen Bag
+    
+            // Hinzufügen von Elementen zur Bag
+            myBag.add(1);
+            myBag.add(2);
+            myBag.add(3);
+    
+            // Ausgabe der Bag
+            System.out.println("Inhalt der Bag: " + myBag.toString());
+            // Ausgabe der Größe der Bag
+            System.out.println("Größe der Bag: " + myBag.size());
+            // Überprüfung, ob die Bag leer ist
+            System.out.println("Ist die Bag leer? " + myBag.isEmpty());
+        }
+    }
+
